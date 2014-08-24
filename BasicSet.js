@@ -5,8 +5,8 @@
 
 // polyfill for Array.isArray
 if(!Array.isArray) {
-    Array.isArray = function (vArg) {
-        return Object.prototype.toString.call(vArg) === "[object Array]";
+    Array.isArray = function (arg) {
+        return Object.prototype.toString.call(arg) === '[object Array]';
     };
 }
 
@@ -16,8 +16,8 @@ if(!Array.isArray) {
 // new BasicSet(1, 2, 3, ...)
 // new BasicSet([1, 2, 3, ...])
 // new BasicSet(1, [2, 3, 4], ...)
-function BasicSet(initialData) {
-    this.data = {};
+function BasicSet() {
+    this._data = {};
     this.add.apply(this, arguments);
 }
 
@@ -32,10 +32,10 @@ BasicSet.prototype.add = function() {
         key = arguments[i];
         if (Array.isArray(key)) {
             for (var j = 0; j < key.length; j++) {
-                this.data[key[j]] = key[j];
+                this._data[key[j]] = key[j];
             }
         } else {
-            this.data[key] = key;
+            this._data[key] = key;
         }
     }
     return this;
@@ -52,31 +52,34 @@ BasicSet.prototype.remove = function() {
         item = arguments[i];
         if (Array.isArray(item)) {
             for (var j = 0; j < item.length; j++) {
-                delete this.data[item[j]];
+                delete this._data[item[j]];
             }
         } else {
-            delete this.data[item];
+            delete this._data[item];
         }
     }
     return this;
 }
 
 BasicSet.prototype.has = function(key) {
-    return Object.prototype.hasOwnProperty.call(this.data, key);
+//    return Object.prototype.hasOwnProperty.call(this._data, key);
+    return this._data[key] !== undefined;
 }
 
-BasicSet.prototype.hasSome = function(args) {
+BasicSet.prototype.hasSome = function() {
     var key;
     for (var i = 0; i < arguments.length; i++) {
         key = arguments[i];
         if (Array.isArray(key)) {
             for (var j = 0; j < key.length; j++) {
-                if (Object.prototype.hasOwnProperty.call(this.data, key[j])) {
+                //if (Object.prototype.hasOwnProperty.call(this._data, key[j])) {
+                if (this._data[key[j]] !== undefined) {
                     return true;
                 }
             }
         } else {
-            if (Object.prototype.hasOwnProperty.call(this.data, key)) {
+            //if (Object.prototype.hasOwnProperty.call(this._data, key)) {
+            if (this._data[key] !== undefined) {
                 return true;
             }
         }
@@ -84,18 +87,20 @@ BasicSet.prototype.hasSome = function(args) {
     return false;
 }
 
-BasicSet.prototype.hasAll = function(args) {
+BasicSet.prototype.hasAll = function() {
     var key;
     for (var i = 0; i < arguments.length; i++) {
         key = arguments[i];
         if (Array.isArray(key)) {
             for (var j = 0; j < key.length; j++) {
-                if (!Object.prototype.hasOwnProperty.call(this.data, key[j])) {
+                //if (!Object.prototype.hasOwnProperty.call(this._data, key[j])) {
+                if (this._data[key[j]] === undefined) {
                     return false;
                 }
             }
         } else {
-            if (!Object.prototype.hasOwnProperty.call(this.data, key)) {
+            //if (!Object.prototype.hasOwnProperty.call(this._data, key)) {
+            if (this._data[key] === undefined) {
                 return false;
             }
         }
@@ -105,38 +110,36 @@ BasicSet.prototype.hasAll = function(args) {
 
 BasicSet.prototype.getAll = function() {
     var results = [];
-    for (var key in this.data) {
-        results.push(this.data[key]);
+    for (var key in this._data) {
+        results.push(this._data[key]);
     }
     return results;
 }
 
 BasicSet.prototype.size = function() {
     var count = 0;
-    for (var key in this.data) {
+    for (var key in this._data) {
         count++;
     }
     return count;
 }
 
 BasicSet.prototype.isEmpty = function() {
-    for (var key in this.data) {
-        if (Object.prototype.hasOwnProperty.call(this.data, key)) {
-            return false;
-        }
+    for (var key in this._data) {
+        return false;
     }
     return true;
 }
 
 BasicSet.prototype.clear = function() {
-    this.data = {};
+    this._data = {};
     return this;
 }
 
 BasicSet.prototype.toString = function() {
     var results = [];
-    for (var key in this.data) {
-        results.push(this.data[key]);
+    for (var key in this._data) {
+        results.push(this._data[key]);
     }
     return results.join(',');
 }
