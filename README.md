@@ -1,6 +1,6 @@
 # SetJS
 
-A basic implementation of the `Set` data structure in Javascript. In case you don't know what a `Set` is, I'll quote [Wikipedia][1].
+A basic implementation of the `Set` data structure in Javascript. In case you don't know what a `Set` is, I'll quote [Wikipedia][1]...
 
 > A set is an abstract data structure that can store certain values, without any particular order, and no repeated values.
 
