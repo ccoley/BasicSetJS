@@ -1,5 +1,6 @@
 /**
- * Basic implementation of a Set in JavaScript
+ * Basic implementation of a Set in JavaScript.
+ * Supports elements of type Number or String.
  */
 
 // polyfill for Array.isArray

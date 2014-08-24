@@ -1,7 +1,5 @@
 module('BasicSet');
 test('BasicSet()', function() {
-    expect(13);
-
     var object = {};
     var set = new BasicSet();
     deepEqual(set.data, object, 'new BasicSet() -> {}');
@@ -47,11 +45,13 @@ test('BasicSet()', function() {
     object = {1:1,2:2,3:3,'2':'2','3':'3',4:4};
     set = new BasicSet(1,2,[3,'2'],'3',4);
     deepEqual(set.data, object, "new BasicSet(1,2,[3,'2'],'3',4) -> {1,2,3,'2','3',4}");
+
+    object = {0.1:0.1,1:1,1.0:1.0,'1.0':'1.0'};
+    set = new BasicSet(0.1,0.1,[0.1,1,1.0,'1.0'],1.0);
+    deepEqual(set.data, object, "new BasicSet(0.1,0.1,[0.1,1,1.0,'1.0'],1.0) -> {0.1,1,1.0,'1.0'}");
 });
 
 test('add()', function() {
-    expect(14);
-
     var object = {};
     var set = new BasicSet();
 
@@ -129,8 +129,6 @@ test('add()', function() {
 });
 
 test('remove()', function() {
-    expect(12);
-
     var object = {1:1,2:2,3:3,4:4,5:5,6:6,7:7,8:8,9:9,10:10,11:11,12:12,13:13,14:14,15:15};
     var set = new BasicSet(1,2,3,4,5,6,7,8,9,10,11,12,13,14,15);
 
@@ -199,8 +197,6 @@ test('remove()', function() {
 });
 
 test('has()', function() {
-    expect(4);
-    
     var set;
 
     set = new BasicSet(1,2,3,4,5);
@@ -213,8 +209,6 @@ test('has()', function() {
 });
 
 test('hasSome()', function() {
-    expect(16);
-    
     var set = new BasicSet(1,2,3,4,5);
 
     ok(set.hasSome(3), '{1,2,3,4,5}.hasSome(3) is TRUE');
@@ -239,8 +233,6 @@ test('hasSome()', function() {
 });
 
 test('hasAll()', function() {
-    expect(16);
-    
     var set = new BasicSet(1,2,3,4,5);
 
     ok(set.hasAll(2), '{1,2,3,4,5}.hasAll(2) is TRUE');
@@ -265,8 +257,6 @@ test('hasAll()', function() {
 });
 
 test('getAll()', function() {
-    expect(2);
-    
     var set = new BasicSet(1,2,3,4,5);
     deepEqual(set.getAll(), [1,2,3,4,5], '{1,2,3,4,5}.getAll() -> [1,2,3,4,5]');
 
@@ -275,8 +265,6 @@ test('getAll()', function() {
 });
 
 test('size()', function() {
-    expect(6);
-
     var set = new BasicSet(1,2,3);
     ok(set.size() === 3, '{1,2,3}.size() === 3');
     ok(set.add(2,4,6).remove(1,5).size() === 4, '{1,2,3}.add(2,4,6).remove(1,5).size() === 4');
@@ -289,8 +277,6 @@ test('size()', function() {
 });
 
 test('isEmpty()', function() {
-    expect(5);
-    
     var set;
 
     set = new BasicSet();
@@ -310,8 +296,6 @@ test('isEmpty()', function() {
 });
 
 test('clear()', function() {
-    expect(3);
-    
     var object = {};
     var set;
 
@@ -329,8 +313,6 @@ test('clear()', function() {
 });
 
 test('toString()', function() {
-    expect(2);
-    
     var set = new BasicSet(1,2,3,4,5);
     deepEqual(set.toString(), "1,2,3,4,5", '{1,2,3,4,5}.toString() -> "1,2,3,4,5"');
 
