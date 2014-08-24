@@ -1,42 +1,57 @@
+module('BasicSet');
 test('BasicSet()', function() {
+    expect(13);
+
     var object = {};
     var set = new BasicSet();
-    deepEqual(set.data, object, 'new BasicSet()');
+    deepEqual(set.data, object, 'new BasicSet() -> {}');
 
     object = {1:1};
     set = new BasicSet(1);
-    deepEqual(set.data, object, 'new BasicSet(1)');
+    deepEqual(set.data, object, 'new BasicSet(1) -> {1}');
     
     object = {1:1,2:2,3:3,4:4,5:5};
     set = new BasicSet(1,2,3,4,5);
-    deepEqual(set.data, object, 'new BasicSet(1,2,3,4,5)');
+    deepEqual(set.data, object, 'new BasicSet(1,2,3,4,5) -> {1,2,3,4,5}');
 
     set = new BasicSet([1,2,3,4,5]);
-    deepEqual(set.data, object, 'new BasicSet([1,2,3,4,5])');
+    deepEqual(set.data, object, 'new BasicSet([1,2,3,4,5]) -> {1,2,3,4,5}');
     
     set = new BasicSet(1,[2,3,4],5);
-    deepEqual(set.data, object, 'new BasicSet(1,[2,3,4],5)');
+    deepEqual(set.data, object, 'new BasicSet(1,[2,3,4],5) -> {1,2,3,4,5}');
+
+    set = new BasicSet(1,2,[2,3,4],5,3,3);
+    deepEqual(set.data, object, 'new BasicSet(1,2,[2,3,4],5,3,3) -> {1,2,3,4,5}');
 
     object = {'a':'a'};
     set = new BasicSet('a');
-    deepEqual(set.data, object, "new BasicSet('a')");
+    deepEqual(set.data, object, "new BasicSet('a') -> {'a'}");
 
     object = {'a':'a','b':'b','c':'c','d':'d','e':'e'};
     set = new BasicSet('a','b','c','d','e');
-    deepEqual(set.data, object, "new BasicSet('a','b','c','d','e')");
+    deepEqual(set.data, object, "new BasicSet('a','b','c','d','e') -> {'a','b','c','d','e'}");
 
     set = new BasicSet(['a','b','c','d','e']);
-    deepEqual(set.data, object, "new BasicSet(['a','b','c','d','e'])");
+    deepEqual(set.data, object, "new BasicSet(['a','b','c','d','e']) -> {'a','b','c','d','e'}");
 
     set = new BasicSet('a',['b','c','d'],'e');
-    deepEqual(set.data, object, "new BasicSet('a',['b','c','d'],'e')");
+    deepEqual(set.data, object, "new BasicSet('a',['b','c','d'],'e') -> {'a','b','c','d','e'}");
+
+    set = new BasicSet('a','b',['b','c','d'],'e','c','c');
+    deepEqual(set.data, object, "new BasicSet('a','b',['b','c','d'],'e','c','c') -> {'a','b','c','d','e'}");
 
     object = {'a':'a',2:2,3:3,'d':'d',5:5};
     set = new BasicSet('a',[2,3,'d'],5);
-    deepEqual(set.data, object, "new BasicSet('a',[2,3,'d'],5)");
+    deepEqual(set.data, object, "new BasicSet('a',[2,3,'d'],5) -> {'a',2,3,'d',5}");
+
+    object = {1:1,2:2,3:3,'2':'2','3':'3',4:4};
+    set = new BasicSet(1,2,[3,'2'],'3',4);
+    deepEqual(set.data, object, "new BasicSet(1,2,[3,'2'],'3',4) -> {1,2,3,'2','3',4}");
 });
 
 test('add()', function() {
+    expect(14);
+
     var object = {};
     var set = new BasicSet();
 
@@ -79,28 +94,28 @@ test('add()', function() {
 
     object['a'] = 'a';
     set.add('a');
-    deepEqual(set.data, object, '{}.add(\'a\') -> {\'a\'}');
+    deepEqual(set.data, object, "{}.add('a') -> {'a'}");
 
     object['b'] = 'b';
     set.add('b');
-    deepEqual(set.data, object, '{\'a\'}.add(\'b\') -> {\'a\',\'b\'}');
+    deepEqual(set.data, object, "{'a'}.add('b') -> {'a','b'}");
 
     object['c'] = 'c';
     object['d'] = 'd';
     set.add('c','d');
-    deepEqual(set.data, object, '{\'a\',\'b\'}.add(\'c\',\'d\') -> {\'a\',\'b\',\'c\',\'d\'}');
+    deepEqual(set.data, object, "{'a','b'}.add('c','d') -> {'a','b','c','d'}");
 
     object['e'] = 'e';
     object['f'] = 'f';
     set.add(['e','f']);
-    deepEqual(set.data, object, '{\'a\',\'b\',\'c\',\'d\'}.add([\'e\',\'f\']) -> {\'a\',\'b\',\'c\',\'d\',\'e\',\'f\'}');
+    deepEqual(set.data, object, "{'a','b','c','d'}.add(['e','f']) -> {'a','b','c','d','e','f'}");
 
     object['g'] = 'g';
     object['h'] = 'h';
     object['i'] = 'i';
     object['j'] = 'j';
     set.add(['g'],'h',['i','j']);
-    deepEqual(set.data, object, '{\'a\',\'b\',\'c\',\'d\',\'e\',\'f\'}.add([\'g\'],\'h\',[\'i\',\'j\']) -> {\'a\',\'b\',\'c\',\'d\',\'e\',\'f\',\'g\',\'h\',\'i\',\'j\'}');
+    deepEqual(set.data, object, "{'a','b','c','d','e','f'}.add(['g'],'h',['i','j']) -> {'a','b','c','d','e','f','g','h','i','j'}");
 
     // Add things that already exist
     object['j'] = 'j';
@@ -114,6 +129,8 @@ test('add()', function() {
 });
 
 test('remove()', function() {
+    expect(12);
+
     var object = {1:1,2:2,3:3,4:4,5:5,6:6,7:7,8:8,9:9,10:10,11:11,12:12,13:13,14:14,15:15};
     var set = new BasicSet(1,2,3,4,5,6,7,8,9,10,11,12,13,14,15);
 
@@ -142,33 +159,33 @@ test('remove()', function() {
 
     set.remove('a');
     delete object['a'];
-    deepEqual(set.data, object, 'remove(\'a\')');
+    deepEqual(set.data, object, "remove('a')");
 
     set.remove('c','e');
     delete object['c'];
     delete object['e'];
-    deepEqual(set.data, object, 'remove(\'c\',\'e\')');
+    deepEqual(set.data, object, "remove('c','e')");
 
     set.remove(['g','i']);
     delete object['g'];
     delete object['i'];
-    deepEqual(set.data, object, 'remove([\'g\',\'i\'])');
+    deepEqual(set.data, object, "remove(['g','i'])");
     
     set.remove('k',['m','o']);
     delete object['k'];
     delete object['m'];
     delete object['o'];
-    deepEqual(set.data, object, 'remove(\'k\',[\'m\',\'o\'])');
+    deepEqual(set.data, object, "remove('k',['m','o'])");
 
     // Test removing things that don't exist
     object = {2:2,4:4,6:6,7:7,8:8,'B':'B','D':'D','F':'F','g':'g','H':'H'};
     set = new BasicSet(2,4,6,7,8,'B','D','F','g','H');
 
     set.remove(1,[3,5]);
-    deepEqual(set.data, object, 'remove(1,[3,5]) from a set that doesn\'t contain any of them');
+    deepEqual(set.data, object, "remove(1,[3,5]) from a set that doesn't contain any of them");
 
     set.remove('a',['c','e']);
-    deepEqual(set.data, object, 'remove(\'a\',[\'c\',\'e\']) from a set that doesn\'t contain any of them');
+    deepEqual(set.data, object, "remove('a',['c','e']) from a set that doesn't contain any of them");
 
     delete object[7];
     delete object[8];
@@ -178,10 +195,12 @@ test('remove()', function() {
     delete object['g'];
     delete object['H'];
     set.remove('c',['e','g'],'H');
-    deepEqual(set.data, object, 'remove(\'c\',[\'e\',\'g\'],\'H\') from a set that contains only some of them');
+    deepEqual(set.data, object, "remove('c',['e','g'],'H') from a set that contains only some of them");
 });
 
 test('has()', function() {
+    expect(4);
+    
     var set;
 
     set = new BasicSet(1,2,3,4,5);
@@ -189,11 +208,13 @@ test('has()', function() {
     ok(!set.has(6), '{1,2,3,4,5}.has(6) is FALSE');
 
     set = new BasicSet('a','b','c','d','e');
-    ok(set.has('c'), '{\'a\',\'b\',\'c\',\'d\',\'e\'}.has(\'c\') is TRUE');
-    ok(!set.has('f'), '{\'a\',\'b\',\'c\',\'d\',\'e\'}.has(\'f\') is FALSE');   
+    ok(set.has('c'), "{'a','b','c','d','e'}.has('c') is TRUE");
+    ok(!set.has('f'), "{'a','b','c','d','e'}.has('f') is FALSE");
 });
 
 test('hasSome()', function() {
+    expect(16);
+    
     var set = new BasicSet(1,2,3,4,5);
 
     ok(set.hasSome(3), '{1,2,3,4,5}.hasSome(3) is TRUE');
@@ -207,17 +228,19 @@ test('hasSome()', function() {
 
     set = new BasicSet('a','b','c','d','e');
 
-    ok(set.hasSome('c'), '{\'a\',\'b\',\'c\',\'d\',\'e\'}.hasSome(\'c\') is TRUE');
-    ok(set.hasSome('b','d','f'), '{\'a\',\'b\',\'c\',\'d\',\'e\'}.hasSome(\'b\',\'d\',\'f\') is TRUE');
-    ok(set.hasSome(['b','d','f']), '{\'a\',\'b\',\'c\',\'d\',\'e\'}.hasSome([\'b\',\'d\',\'f\']) is TRUE');
-    ok(set.hasSome('b',['d','f']), '{\'a\',\'b\',\'c\',\'d\',\'e\'}.hasSome(\'b\',[\'d\',\'f\']) is TRUE');
-    ok(!set.hasSome('g'), '{\'a\',\'b\',\'c\',\'d\',\'e\'}.hasSome(\'g\') is FALSE');
-    ok(!set.hasSome('f','g','h'), '{\'a\',\'b\',\'c\',\'d\',\'e\'}.hasSome(\'f\',\'g\',\'h\') is FALSE');
-    ok(!set.hasSome(['f','g','h']), '{\'a\',\'b\',\'c\',\'d\',\'e\'}.hasSome([\'f\',\'g\',\'h\']) is FALSE');
-    ok(!set.hasSome('f',['g','h']), '{\'a\',\'b\',\'c\',\'d\',\'e\'}.hasSome(\'f\',[\'g\',\'h\']) is FALSE');
+    ok(set.hasSome('c'), "{'a','b','c','d','e'}.hasSome('c') is TRUE");
+    ok(set.hasSome('b','d','f'), "{'a','b','c','d','e'}.hasSome('b','d','f') is TRUE");
+    ok(set.hasSome(['b','d','f']), "{'a','b','c','d','e'}.hasSome(['b','d','f']) is TRUE");
+    ok(set.hasSome('b',['d','f']), "{'a','b','c','d','e'}.hasSome('b',['d','f']) is TRUE");
+    ok(!set.hasSome('g'), "{'a','b','c','d','e'}.hasSome('g') is FALSE");
+    ok(!set.hasSome('f','g','h'), "{'a','b','c','d','e'}.hasSome('f','g','h') is FALSE");
+    ok(!set.hasSome(['f','g','h']), "{'a','b','c','d','e'}.hasSome(['f','g','h']) is FALSE");
+    ok(!set.hasSome('f',['g','h']), "{'a','b','c','d','e'}.hasSome('f',['g','h']) is FALSE");
 });
 
 test('hasAll()', function() {
+    expect(16);
+    
     var set = new BasicSet(1,2,3,4,5);
 
     ok(set.hasAll(2), '{1,2,3,4,5}.hasAll(2) is TRUE');
@@ -231,25 +254,29 @@ test('hasAll()', function() {
 
     set = new BasicSet('a','b','c','d','e');
 
-    ok(set.hasAll('b'), '{\'a\',\'b\',\'c\',\'d\',\'e\'}.hasAll(\'b\') is TRUE');
-    ok(set.hasAll('a','c','e'), '{\'a\',\'b\',\'c\',\'d\',\'e\'}.hasAll(\'a\',\'c\',\'e\') is TRUE');
-    ok(set.hasAll(['a','c','e']), '{\'a\',\'b\',\'c\',\'d\',\'e\'}.hasAll([\'a\',\'c\',\'e\']) is TRUE');
-    ok(set.hasAll('a',['c','e']), '{\'a\',\'b\',\'c\',\'d\',\'e\'}.hasAll(\'a\',[\'c\',\'e\']) is TRUE');
-    ok(!set.hasAll('f'), '{\'a\',\'b\',\'c\',\'d\',\'e\'}.hasAll(\'f\') is FALSE');
-    ok(!set.hasAll('b','d','f'), '{\'a\',\'b\',\'c\',\'d\',\'e\'}.hasAll(\'b\',\'d\',\'f\') is FALSE');
-    ok(!set.hasAll(['b','d','f']), '{\'a\',\'b\',\'c\',\'d\',\'e\'}.hasAll([\'b\',\'d\',\'f\']) is FALSE');
-    ok(!set.hasAll('b',['d','f']), '{\'a\',\'b\',\'c\',\'d\',\'e\'}.hasAll(\'b\',[\'d\',\'f\']) is FALSE');
+    ok(set.hasAll('b'), "{'a','b','c','d','e'}.hasAll('b') is TRUE");
+    ok(set.hasAll('a','c','e'), "{'a','b','c','d','e'}.hasAll('a','c','e') is TRUE");
+    ok(set.hasAll(['a','c','e']), "{'a','b','c','d','e'}.hasAll(['a','c','e']) is TRUE");
+    ok(set.hasAll('a',['c','e']), "{'a','b','c','d','e'}.hasAll('a',['c','e']) is TRUE");
+    ok(!set.hasAll('f'), "{'a','b','c','d','e'}.hasAll('f') is FALSE");
+    ok(!set.hasAll('b','d','f'), "{'a','b','c','d','e'}.hasAll('b','d','f') is FALSE");
+    ok(!set.hasAll(['b','d','f']), "{'a','b','c','d','e'}.hasAll(['b','d','f']) is FALSE");
+    ok(!set.hasAll('b',['d','f']), "{'a','b','c','d','e'}.hasAll('b',['d','f']) is FALSE");
 });
 
 test('getAll()', function() {
+    expect(2);
+    
     var set = new BasicSet(1,2,3,4,5);
     deepEqual(set.getAll(), [1,2,3,4,5], '{1,2,3,4,5}.getAll() -> [1,2,3,4,5]');
 
     set = new BasicSet('a','b','c','d','e');
-    deepEqual(set.getAll(), ['a','b','c','d','e'], '{\'a\',\'b\',\'c\',\'d\',\'e\'}.getAll() -> [\'a\',\'b\',\'c\',\'d\',\'e\']');  
+    deepEqual(set.getAll(), ['a','b','c','d','e'], "{'a','b','c','d','e'}.getAll() -> ['a','b','c','d','e']");  
 });
 
 test('size()', function() {
+    expect(6);
+
     var set = new BasicSet(1,2,3);
     ok(set.size() === 3, '{1,2,3}.size() === 3');
     ok(set.add(2,4,6).remove(1,5).size() === 4, '{1,2,3}.add(2,4,6).remove(1,5).size() === 4');
@@ -262,6 +289,8 @@ test('size()', function() {
 });
 
 test('isEmpty()', function() {
+    expect(5);
+    
     var set;
 
     set = new BasicSet();
@@ -274,13 +303,15 @@ test('isEmpty()', function() {
     ok(!set.isEmpty(), '{1,2}.isEmpty() is FALSE');
 
     set = new BasicSet('a');
-    ok(!set.isEmpty(), '{\'a\'}.isEmpty() is FALSE');
+    ok(!set.isEmpty(), "{'a'}.isEmpty() is FALSE");
     
     set = new BasicSet('a','b');
-    ok(!set.isEmpty(), '{\'a\',\'b\'}.isEmpty() is FALSE');
+    ok(!set.isEmpty(), "{'a','b'}.isEmpty() is FALSE");
 });
 
 test('clear()', function() {
+    expect(3);
+    
     var object = {};
     var set;
 
@@ -290,17 +321,19 @@ test('clear()', function() {
 
     set = new BasicSet('a','b','c','d','e');
     set.clear();
-    deepEqual(set.data, object, '{\'a\',\'b\',\'c\',\'d\',\'e\'}.clear() -> {}');
+    deepEqual(set.data, object, "{'a','b','c','d','e'}.clear() -> {}");
 
     set = new BasicSet('a',2,3,'d',5);
     set.clear();
-    deepEqual(set.data, object, '{\'a\',2,3,\'d\',5}.clear() -> {}');
+    deepEqual(set.data, object, "{'a',2,3,'d',5}.clear() -> {}");
 });
 
 test('toString()', function() {
+    expect(2);
+    
     var set = new BasicSet(1,2,3,4,5);
     deepEqual(set.toString(), "1,2,3,4,5", '{1,2,3,4,5}.toString() -> "1,2,3,4,5"');
 
     set = new BasicSet('a','b','c','d','e');
-    deepEqual(set.toString(), "a,b,c,d,e", '{\'a\',\'b\',\'c\',\'d\',\'e\'}.toString() -> "a,b,c,d,e"');
+    deepEqual(set.toString(), "a,b,c,d,e", "{'a','b','c','d','e'}.toString() -> \"a,b,c,d,e\"");
 });
