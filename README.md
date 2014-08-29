@@ -46,6 +46,6 @@ var set = new BasicSet(1,'2',[2.5,'c'],'d',5.0); // {1,'2',2.5,'c','d',5.0}
 <br>Removes all elements from the `BasicSet` object. Returns the `BasicSet` object.
 
 **BasicSet.prototype.toString()**
-<br>;Returns a String representation of the elements in the `BasicSet` object.
+<br>Returns a String representation of the elements in the `BasicSet` object.
 
 [1]: http://en.wikipedia.org/wiki/Set_(computer_science) "Set (abstract data type)"
