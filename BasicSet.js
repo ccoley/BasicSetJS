@@ -116,6 +116,11 @@ BasicSet.prototype.getAll = function() {
     return results;
 }
 
+/**
+ * Returns the number of elements in the set.
+ *
+ * @return number
+ */
 BasicSet.prototype.size = function() {
     var count = 0;
     for (var key in this._data) {
@@ -124,6 +129,11 @@ BasicSet.prototype.size = function() {
     return count;
 }
 
+/**
+ * Returns a boolean asserting whether the set contains no elements.
+ *
+ * @return boolean
+ */
 BasicSet.prototype.isEmpty = function() {
     for (var key in this._data) {
         return false;
@@ -131,6 +141,9 @@ BasicSet.prototype.isEmpty = function() {
     return true;
 }
 
+/**
+ * Removes all elements from the set.
+ */
 BasicSet.prototype.clear = function() {
     this._data = {};
     return this;
