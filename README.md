@@ -19,34 +19,34 @@ var set = new BasicSet(1,'2',[2.5,'c'],'d',5.0); // {1,'2',2.5,'c','d',5.0}
 
 ### Methods
 
-**BasicSet.prototype.add(args)**
+**add(args)**
 <br>Appends all elements in `args` to the `BasicSet` object. `args` can be a value, several values, an array of values, or a mix of values and arrays of values. Returns the `BasicSet` object.
 
-**BasicSet.prototype.remove(args)**
+**remove(args)**
 <br>Removes all elements in `args` from the `BasicSet` object. `args` can be a value, several values, an array of values, or a mix of values and arrays of values. Returns the `BasicSet` object.
 
-**BasicSet.prototype.has(value)**
+**has(value)**
 <br>Returns a boolean asserting whether an element is present with the given value in the `BasicSet` object or not.
 
-**BasicSet.prototype.hasSome(args)**
+**hasSome(args)**
 <br>Returns a boolean asserting whether any of the elements in `args` are present in the `BasicSet` object. `args` can be a value, several values, an array of values, or a mix of values and arrays of values.
 
-**BasicSet.prototype.hasAll(args)**
+**hasAll(args)**
 <br>Returns a boolean asserting whether all of the elements in `args` are present in the `BasicSet` object. `args` can be a value, several values, an array of values, or a mix of values and arrays of values.
 
-**BasicSet.prototype.getAll()**
+**getAll()**
 <br>Returns an `Array` containing every element in the `BasicSet` object.
 
-**BasicSet.prototype.size()**
+**size()**
 <br>Returns the number of elements in the `BasicSet` object.
 
-**BasicSet.prototype.isEmpty()**
+**isEmpty()**
 <br>Returns a boolean asserting whether the `BasicSet` object contains no elements.
 
-**BasicSet.prototype.clear()**
+**clear()**
 <br>Removes all elements from the `BasicSet` object. Returns the `BasicSet` object.
 
-**BasicSet.prototype.toString()**
+**toString()**
 <br>Returns a String representation of the elements in the `BasicSet` object.
 
 
