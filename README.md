@@ -6,6 +6,8 @@ A basic implementation of the `Set` data structure in Javascript. In case you do
 
 The `BasicSet` in SetJS supports values of type `Number` or `String`.
 
+Fork it on [GitHub][2]
+
 ### Syntax
 
 ```javascript
@@ -52,3 +54,4 @@ var set = new BasicSet(1,'2',[2.5,'c'],'d',5.0); // {1,'2',2.5,'c','d',5.0}
 
 
 [1]: http://en.wikipedia.org/wiki/Set_(computer_science) "Set (abstract data type)"
+[2]: http://github.com/ccoley/SetJS "SetJS Repository"
