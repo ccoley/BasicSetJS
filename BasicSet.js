@@ -39,7 +39,7 @@ BasicSet.prototype.add = function() {
         }
     }
     return this;
-}
+};
 
 // Usage:
 // remove(key)
@@ -59,12 +59,12 @@ BasicSet.prototype.remove = function() {
         }
     }
     return this;
-}
+};
 
 BasicSet.prototype.has = function(key) {
 //    return Object.prototype.hasOwnProperty.call(this._data, key);
     return this._data[key] !== undefined;
-}
+};
 
 BasicSet.prototype.hasSome = function() {
     var key;
@@ -85,7 +85,7 @@ BasicSet.prototype.hasSome = function() {
         }
     }
     return false;
-}
+};
 
 BasicSet.prototype.hasAll = function() {
     var key;
@@ -106,7 +106,7 @@ BasicSet.prototype.hasAll = function() {
         }
     }
     return true;
-}
+};
 
 BasicSet.prototype.getAll = function() {
     var results = [];
@@ -114,7 +114,7 @@ BasicSet.prototype.getAll = function() {
         results.push(this._data[key]);
     }
     return results;
-}
+};
 
 /**
  * Returns the number of elements in the set.
@@ -127,7 +127,7 @@ BasicSet.prototype.size = function() {
         count++;
     }
     return count;
-}
+};
 
 /**
  * Returns a boolean asserting whether the set contains no elements.
@@ -139,7 +139,7 @@ BasicSet.prototype.isEmpty = function() {
         return false;
     }
     return true;
-}
+};
 
 /**
  * Removes all elements from the set.
@@ -147,7 +147,7 @@ BasicSet.prototype.isEmpty = function() {
 BasicSet.prototype.clear = function() {
     this._data = {};
     return this;
-}
+};
 
 BasicSet.prototype.toString = function() {
     var results = [];
@@ -155,4 +155,4 @@ BasicSet.prototype.toString = function() {
         results.push(this._data[key]);
     }
     return results.join(',');
-}
+};

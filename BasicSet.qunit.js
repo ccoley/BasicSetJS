@@ -7,14 +7,14 @@ test('BasicSet()', function() {
     object = {1:1};
     set = new BasicSet(1);
     deepEqual(set._data, object, 'new BasicSet(1) -> {1}');
-    
+
     object = {1:1,2:2,3:3,4:4,5:5};
     set = new BasicSet(1,2,3,4,5);
     deepEqual(set._data, object, 'new BasicSet(1,2,3,4,5) -> {1,2,3,4,5}');
 
     set = new BasicSet([1,2,3,4,5]);
     deepEqual(set._data, object, 'new BasicSet([1,2,3,4,5]) -> {1,2,3,4,5}');
-    
+
     set = new BasicSet(1,[2,3,4],5);
     deepEqual(set._data, object, 'new BasicSet(1,[2,3,4],5) -> {1,2,3,4,5}');
 
@@ -42,13 +42,13 @@ test('BasicSet()', function() {
     set = new BasicSet('a',[2,3,'d'],5);
     deepEqual(set._data, object, "new BasicSet('a',[2,3,'d'],5) -> {'a',2,3,'d',5}");
 
-    object = {1:1,2:2,3:3,'2':'2','3':'3',4:4};
+    object = {1:1,2:'2',3:'3',4:4};
     set = new BasicSet(1,2,[3,'2'],'3',4);
-    deepEqual(set._data, object, "new BasicSet(1,2,[3,'2'],'3',4) -> {1,2,3,'2','3',4}");
+    deepEqual(set._data, object, "new BasicSet(1,2,[3,'2'],'3',4) -> {1,'2','3',4}");
 
-    object = {0.1:0.1,1:1,1.0:1.0,'1.0':'1.0'};
+    object = {0.1:0.1,1:1,'1.0':'1.0'};
     set = new BasicSet(0.1,0.1,[0.1,1,1.0,'1.0'],1.0);
-    deepEqual(set._data, object, "new BasicSet(0.1,0.1,[0.1,1,1.0,'1.0'],1.0) -> {0.1,1,1.0,'1.0'}");
+    deepEqual(set._data, object, "new BasicSet(0.1,0.1,[0.1,1,1.0,'1.0'],1.0) -> {0.1,1,'1.0'}");
 });
 
 test('add()', function() {
@@ -92,35 +92,35 @@ test('add()', function() {
     object = {};
     set = new BasicSet();
 
-    object['a'] = 'a';
+    object.a = 'a';
     set.add('a');
     deepEqual(set._data, object, "{}.add('a') -> {'a'}");
 
-    object['b'] = 'b';
+    object.b = 'b';
     set.add('b');
     deepEqual(set._data, object, "{'a'}.add('b') -> {'a','b'}");
 
-    object['c'] = 'c';
-    object['d'] = 'd';
+    object.c = 'c';
+    object.d = 'd';
     set.add('c','d');
     deepEqual(set._data, object, "{'a','b'}.add('c','d') -> {'a','b','c','d'}");
 
-    object['e'] = 'e';
-    object['f'] = 'f';
+    object.e = 'e';
+    object.f = 'f';
     set.add(['e','f']);
     deepEqual(set._data, object, "{'a','b','c','d'}.add(['e','f']) -> {'a','b','c','d','e','f'}");
 
-    object['g'] = 'g';
-    object['h'] = 'h';
-    object['i'] = 'i';
-    object['j'] = 'j';
+    object.g = 'g';
+    object.h = 'h';
+    object.i = 'i';
+    object.j = 'j';
     set.add(['g'],'h',['i','j']);
     deepEqual(set._data, object, "{'a','b','c','d','e','f'}.add(['g'],'h',['i','j']) -> {'a','b','c','d','e','f','g','h','i','j'}");
 
     // Add things that already exist
-    object['j'] = 'j';
-    object['k'] = 'k';
-    object['l'] = 'l';
+    object.j = 'j';
+    object.k = 'k';
+    object.l = 'l';
     set.add('j','k','l');
     deepEqual(set._data, object, "{'a','b','c','d','e','f','g','h','i','j'}.add('j','k','l') -> {'a','b','c','d','e','f','g','h','i','j','k','l'}");
 
@@ -145,7 +145,7 @@ test('remove()', function() {
     delete object[7];
     delete object[9];
     deepEqual(set._data, object, 'remove([7,9])');
-    
+
     set.remove(11,[13,15]);
     delete object[11];
     delete object[13];
@@ -156,23 +156,23 @@ test('remove()', function() {
     set = new BasicSet('a','B','c','D','e','F','g','H','i','J','k','L','m','N','o');
 
     set.remove('a');
-    delete object['a'];
+    delete object.a;
     deepEqual(set._data, object, "remove('a')");
 
     set.remove('c','e');
-    delete object['c'];
-    delete object['e'];
+    delete object.c;
+    delete object.e;
     deepEqual(set._data, object, "remove('c','e')");
 
     set.remove(['g','i']);
-    delete object['g'];
-    delete object['i'];
+    delete object.g;
+    delete object.i;
     deepEqual(set._data, object, "remove(['g','i'])");
-    
+
     set.remove('k',['m','o']);
-    delete object['k'];
-    delete object['m'];
-    delete object['o'];
+    delete object.k;
+    delete object.m;
+    delete object.o;
     deepEqual(set._data, object, "remove('k',['m','o'])");
 
     // Test removing things that don't exist
@@ -190,8 +190,8 @@ test('remove()', function() {
     set.remove(3,[5,7],8);
     deepEqual(set._data, object, 'remove(3,[5,7],8) from a set that contains only some of them');
 
-    delete object['g'];
-    delete object['H'];
+    delete object.g;
+    delete object.H;
     set.remove('c',['e','g'],'H');
     deepEqual(set._data, object, "remove('c',['e','g'],'H') from a set that contains only some of them");
 });
@@ -261,7 +261,7 @@ test('getAll()', function() {
     deepEqual(set.getAll(), [1,2,3,4,5], '{1,2,3,4,5}.getAll() -> [1,2,3,4,5]');
 
     set = new BasicSet('a','b','c','d','e');
-    deepEqual(set.getAll(), ['a','b','c','d','e'], "{'a','b','c','d','e'}.getAll() -> ['a','b','c','d','e']");  
+    deepEqual(set.getAll(), ['a','b','c','d','e'], "{'a','b','c','d','e'}.getAll() -> ['a','b','c','d','e']");
 });
 
 test('size()', function() {
@@ -284,13 +284,13 @@ test('isEmpty()', function() {
 
     set = new BasicSet(1);
     ok(!set.isEmpty(), 'A set with one numeric value in it should return FALSE for isEmpty()');
-    
+
     set = new BasicSet(1,2);
     ok(!set.isEmpty(), 'A set with multiple numeric values in it should return FALSE for isEmpty()');
 
     set = new BasicSet('a');
     ok(!set.isEmpty(), "A set with one string value in it should return FALSE for isEmpty()");
-    
+
     set = new BasicSet('a','b');
     ok(!set.isEmpty(), "A set with multiple string values in it should return FALSE for isEmpty()");
 
