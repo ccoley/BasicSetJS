@@ -264,6 +264,26 @@ test('getAll()', function() {
     deepEqual(set.getAll(), ['a','b','c','d','e'], "{'a','b','c','d','e'}.getAll() -> ['a','b','c','d','e']");
 });
 
+test('getIntersection()', function() {
+	// Test numbers
+	var set = new BasicSet(1,2,3,4,5);
+	deepEqual(set.getIntersection([1,2,3,4,5]), [1,2,3,4,5], '{1,2,3,4,5}.getIntersection([1,2,3,4,5]) -> [1,2,3,4,5]');
+	deepEqual(set.getIntersection([]), [], '{1,2,3,4,5}.getIntersection([]) -> []');
+	deepEqual(set.getIntersection([1,2,4]), [1,2,4], '{1,2,3,4,5}.getIntersection([1,2,4]) -> [1,2,4]');
+	deepEqual(set.getIntersection([1,2,4,8,16]), [1,2,4], '{1,2,3,4,5}.getIntersection([1,2,4,8,16]) -> [1,2,4]');
+	
+	// Test strings
+	set = new BasicSet('a','b','c','d','e');
+	deepEqual(set.getIntersection(['a','b','c','d','e']), ['a','b','c','d','e'], "{'a','b','c','d','e'}.getIntersection(['a','b','d']) -> ['a','b','d']");
+	deepEqual(set.getIntersection([]), [], "{'a','b','c','d','e'}.getIntersection([]) -> []");
+	deepEqual(set.getIntersection(['a','b','d']), ['a','b','d'], "{'a','b','c','d','e'}.getIntersection(['a','b','d']) -> ['a','b','d']");
+	deepEqual(set.getIntersection(['a','b','d','h','p']), ['a','b','d'], "{'a','b','c','d','e'}.getIntersection(['a','b','d','h','p']) -> ['a','b','d']");
+
+	// Test mixed numbers and strings
+	set = new BasicSet(1,2,3,4,5);
+	deepEqual(set.getIntersection(['1',2,'4']), ['1',2,'4'], "{1,2,3,4,5}.getIntersection(['1',2,'4']) -> ['1',2,'4']");
+});
+
 test('size()', function() {
     var set = new BasicSet(1,2,3);
     ok(set.size() === 3, '{1,2,3}.size() === 3');

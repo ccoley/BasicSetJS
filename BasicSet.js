@@ -116,6 +116,18 @@ BasicSet.prototype.getAll = function() {
     return results;
 };
 
+BasicSet.prototype.getIntersection = function(otherSet) {
+	if (!Array.isArray(otherSet)) { return []; }
+
+	var i, j, key, results = [];
+	for (i = 0, len = otherSet.length; i < len; i++) {
+		if (this._data[otherSet[i]] !== undefined) {
+			results.push(otherSet[i]);
+		}
+	}
+	return results;
+};
+
 /**
  * Returns the number of elements in the set.
  *

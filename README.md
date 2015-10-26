@@ -39,6 +39,9 @@ var set = new BasicSet(1,'2',[2.5,'c'],'d',5.0); // {1,'2',2.5,'c','d',5.0}
 **getAll()**
 <br>Returns an `Array` containing every element in the `BasicSet` object.
 
+**getIntersection(valuesArray)**
+<br>Returns an `Array` containing every element from `valuesArray` that is present in the `BasicSet` object. `valuesArray` must be an array of values.
+
 **size()**
 <br>Returns the number of elements in the `BasicSet` object.
 
