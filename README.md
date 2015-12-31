@@ -1,12 +1,12 @@
 # SetJS
 
+[![Build Status][2]][3]
+
 A basic implementation of the `Set` data structure in Javascript. In case you don't know what a `Set` is, I'll quote [Wikipedia][1]...
 
 > A set is an abstract data structure that can store certain values, without any particular order, and no repeated values.
 
 The `BasicSet` in SetJS supports values of type `Number` or `String`.
-
-Fork it on [GitHub][2]
 
 ### Syntax
 
@@ -58,4 +58,5 @@ var set = new BasicSet(1,'2',[2.5,'c'],'d',5.0); // {1,'2',2.5,'c','d',5.0}
 
 
 [1]: http://en.wikipedia.org/wiki/Set_(computer_science) "Set (abstract data type)"
-[2]: http://github.com/ccoley/SetJS "SetJS Repository"
+[2]: https://gitlab.codingallnight.com/ci/projects/2/status.png?ref=master "Build Status"
+[3]: https://gitlab.codingallnight.com/chris/set-js/builds?scope=all "SetJS Builds"
