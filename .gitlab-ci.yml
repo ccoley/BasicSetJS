@@ -1,0 +1,7 @@
+image: js-testing
+
+tests:
+  script:
+    - export NODE_ENV="testing"
+    - npm install
+    - grunt qunit
