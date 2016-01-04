@@ -119,7 +119,7 @@ BasicSet.prototype.getAll = function() {
 BasicSet.prototype.getIntersection = function(otherSet) {
 	if (!Array.isArray(otherSet)) { return []; }
 
-	var i, j, key, results = [];
+	var i, j, len, key, results = [];
 	for (i = 0, len = otherSet.length; i < len; i++) {
 		if (this._data[otherSet[i]] !== undefined) {
 			results.push(otherSet[i]);
