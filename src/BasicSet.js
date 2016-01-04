@@ -125,7 +125,7 @@ BasicSet.prototype.getIntersection = function(otherSet) {
             results.push(otherSet[i]);
         }
     }
-return results;
+    return results;
 };
 
 /**
