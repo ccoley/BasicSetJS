@@ -1,7 +1,19 @@
 image: js-testing
 
-tests:
+stages:
+  - test
+
+unit_tests:
+  stage: test
   script:
     - export NODE_ENV="testing"
     - npm install
-    - grunt qunit
+    - grunt unit
+
+coverage_tests:
+  stage: test
+  script:
+    - export NODE_ENV="testing"
+	- npm install
+	- grunt --verbose coverage
+  allow_failure: true
