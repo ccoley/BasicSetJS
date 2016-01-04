@@ -1,9 +1,9 @@
 module('BasicSet');
 test('BasicSet()', function() {
     var object, set;
-	expect(14);
-	
-	object = {};
+    expect(14);
+
+    object = {};
     set = new BasicSet();
     deepEqual(set._data, object, 'new BasicSet() -> {}');
 
@@ -55,8 +55,8 @@ test('BasicSet()', function() {
 });
 
 test('add()', function() {
-	var object, set;
-	expect(14);
+    var object, set;
+    expect(14);
 
     object = {};
     set = new BasicSet();
@@ -135,8 +135,8 @@ test('add()', function() {
 });
 
 test('remove()', function() {
-	var object, set;
-	expect(12);
+    var object, set;
+    expect(12);
 
     object = {1:1,2:2,3:3,4:4,5:5,6:6,7:7,8:8,9:9,10:10,11:11,12:12,13:13,14:14,15:15};
     set = new BasicSet(1,2,3,4,5,6,7,8,9,10,11,12,13,14,15);
@@ -207,7 +207,7 @@ test('remove()', function() {
 
 test('has()', function() {
     var set;
-	expect(4);
+    expect(4);
 
     set = new BasicSet(1,2,3,4,5);
     ok(set.has(3), '{1,2,3,4,5}.has(3) is TRUE');
@@ -219,10 +219,10 @@ test('has()', function() {
 });
 
 test('hasSome()', function() {
-	var set;
-	expect(16);
-    
-	set = new BasicSet(1,2,3,4,5);
+    var set;
+    expect(16);
+
+    set = new BasicSet(1,2,3,4,5);
 
     ok(set.hasSome(3), '{1,2,3,4,5}.hasSome(3) is TRUE');
     ok(set.hasSome(2,4,6), '{1,2,3,4,5}.hasSome(2,4,6) is TRUE');
@@ -246,8 +246,8 @@ test('hasSome()', function() {
 });
 
 test('hasAll()', function() {
-	var set;
-	expect(16);
+    var set;
+    expect(16);
 
     set = new BasicSet(1,2,3,4,5);
 
@@ -273,8 +273,8 @@ test('hasAll()', function() {
 });
 
 test('getAll()', function() {
-	var set;
-	expect(2);
+    var set;
+    expect(2);
 
     set = new BasicSet(1,2,3,4,5);
     deepEqual(set.getAll(), [1,2,3,4,5], '{1,2,3,4,5}.getAll() -> [1,2,3,4,5]');
@@ -284,31 +284,31 @@ test('getAll()', function() {
 });
 
 test('getIntersection()', function() {
-	var set;
-	expect(9);
+    var set;
+    expect(9);
 
-	// Test numbers
-	set = new BasicSet(1,2,3,4,5);
-	deepEqual(set.getIntersection([1,2,3,4,5]), [1,2,3,4,5], '{1,2,3,4,5}.getIntersection([1,2,3,4,5]) -> [1,2,3,4,5]');
-	deepEqual(set.getIntersection([]), [], '{1,2,3,4,5}.getIntersection([]) -> []');
-	deepEqual(set.getIntersection([1,2,4]), [1,2,4], '{1,2,3,4,5}.getIntersection([1,2,4]) -> [1,2,4]');
-	deepEqual(set.getIntersection([1,2,4,8,16]), [1,2,4], '{1,2,3,4,5}.getIntersection([1,2,4,8,16]) -> [1,2,4]');
-	
-	// Test strings
-	set = new BasicSet('a','b','c','d','e');
-	deepEqual(set.getIntersection(['a','b','c','d','e']), ['a','b','c','d','e'], "{'a','b','c','d','e'}.getIntersection(['a','b','d']) -> ['a','b','d']");
-	deepEqual(set.getIntersection([]), [], "{'a','b','c','d','e'}.getIntersection([]) -> []");
-	deepEqual(set.getIntersection(['a','b','d']), ['a','b','d'], "{'a','b','c','d','e'}.getIntersection(['a','b','d']) -> ['a','b','d']");
-	deepEqual(set.getIntersection(['a','b','d','h','p']), ['a','b','d'], "{'a','b','c','d','e'}.getIntersection(['a','b','d','h','p']) -> ['a','b','d']");
+    // Test numbers
+    set = new BasicSet(1,2,3,4,5);
+    deepEqual(set.getIntersection([1,2,3,4,5]), [1,2,3,4,5], '{1,2,3,4,5}.getIntersection([1,2,3,4,5]) -> [1,2,3,4,5]');
+    deepEqual(set.getIntersection([]), [], '{1,2,3,4,5}.getIntersection([]) -> []');
+    deepEqual(set.getIntersection([1,2,4]), [1,2,4], '{1,2,3,4,5}.getIntersection([1,2,4]) -> [1,2,4]');
+    deepEqual(set.getIntersection([1,2,4,8,16]), [1,2,4], '{1,2,3,4,5}.getIntersection([1,2,4,8,16]) -> [1,2,4]');
 
-	// Test mixed numbers and strings
-	set = new BasicSet(1,2,3,4,5);
-	deepEqual(set.getIntersection(['1',2,'4']), ['1',2,'4'], "{1,2,3,4,5}.getIntersection(['1',2,'4']) -> ['1',2,'4']");
+    // Test strings
+    set = new BasicSet('a','b','c','d','e');
+    deepEqual(set.getIntersection(['a','b','c','d','e']), ['a','b','c','d','e'], "{'a','b','c','d','e'}.getIntersection(['a','b','d']) -> ['a','b','d']");
+    deepEqual(set.getIntersection([]), [], "{'a','b','c','d','e'}.getIntersection([]) -> []");
+    deepEqual(set.getIntersection(['a','b','d']), ['a','b','d'], "{'a','b','c','d','e'}.getIntersection(['a','b','d']) -> ['a','b','d']");
+    deepEqual(set.getIntersection(['a','b','d','h','p']), ['a','b','d'], "{'a','b','c','d','e'}.getIntersection(['a','b','d','h','p']) -> ['a','b','d']");
+
+    // Test mixed numbers and strings
+    set = new BasicSet(1,2,3,4,5);
+    deepEqual(set.getIntersection(['1',2,'4']), ['1',2,'4'], "{1,2,3,4,5}.getIntersection(['1',2,'4']) -> ['1',2,'4']");
 });
 
 test('size()', function() {
-	var set;
-	expect(6);
+    var set;
+    expect(6);
 
     set = new BasicSet(1,2,3);
     ok(set.size() === 3, '{1,2,3}.size() === 3');
@@ -323,7 +323,7 @@ test('size()', function() {
 
 test('isEmpty()', function() {
     var set;
-	expect(8);
+    expect(8);
 
     set = new BasicSet();
     ok(set.isEmpty(), 'A set initialized with no initial data should return TRUE for isEmpty()');
@@ -353,11 +353,11 @@ test('isEmpty()', function() {
 });
 
 test('clear()', function() {
-	var object, set;
-	expect(3);
+    var object, set;
+    expect(3);
 
     object = {};
-    
+
     set = new BasicSet(1,2,3,4,5);
     set.clear();
     deepEqual(set._data, object, '{1,2,3,4,5}.clear() -> {}');
@@ -372,8 +372,8 @@ test('clear()', function() {
 });
 
 test('toString()', function() {
-	var set;
-	expect(2);
+    var set;
+    expect(2);
 
     set = new BasicSet(1,2,3,4,5);
     deepEqual(set.toString(), "1,2,3,4,5", '{1,2,3,4,5}.toString() -> "1,2,3,4,5"');
