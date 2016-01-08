@@ -58,6 +58,6 @@ Returns a String representation of the elements in the `BasicSet` object.
 
 
 
-[build_badge]: https://gitlab.codingallnight.com/ci/projects/2/status.png?ref=master "Build Status"
-[build_page]: https://gitlab.codingallnight.com/chris/set-js/builds?scope=all "SetJS Builds"
+[build_badge]: https://git.codingallnight.com/ci/projects/2/status.png?ref=master "Build Status"
+[build_page]: https://git.codingallnight.com/chris/set-js/builds?scope=all "SetJS Builds"
 [1]: http://en.wikipedia.org/wiki/Set_(computer_science) "Set (abstract data type)"
