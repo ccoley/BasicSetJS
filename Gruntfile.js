@@ -13,10 +13,18 @@ module.exports = function(grunt) {
                     globalThreshold: 95
                 }
             }
+        },
+        uglify: {
+            all: {
+                files: {
+                    'dist/BasicSet.min.js': ['src/BasicSet.js']
+                }
+            }
         }
     });
     grunt.loadNpmTasks('grunt-contrib-qunit');
     grunt.loadNpmTasks('grunt-blanket-qunit');
+    grunt.loadNpmTasks('grunt-contrib-uglify')
     grunt.registerTask('unit', ['qunit:all']);
     grunt.registerTask('coverage', ['blanket_qunit:all']);
 }
