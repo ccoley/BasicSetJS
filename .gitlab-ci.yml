@@ -1,7 +1,18 @@
 image: js-testing
 
 stages:
+  - build
   - test
+
+build:
+  stage: build
+  artifacts:
+    paths:
+      - dist/
+  script:
+    - export NODE_ENV="testing"
+    - npm install
+    - grunt uglify
 
 unit_tests:
   stage: test
