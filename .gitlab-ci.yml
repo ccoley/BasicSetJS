@@ -10,6 +10,7 @@ build:
     paths:
       - dist/
   script:
+    - rm dist/.gitkeep # keep this file out of the build artifacts
     - export NODE_ENV="testing"
     - npm install
     - grunt uglify
