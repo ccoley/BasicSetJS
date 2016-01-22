@@ -17,22 +17,16 @@ build:
       - dist/
   script:
     - rm dist/.gitkeep # Keep this file out of the build artifacts
-#    - export NODE_ENV="testing"
-#    - npm install
     - grunt uglify
     - grunt qunit:dist # Test the uglified files
 
 unit_tests:
   stage: test
   script:
-#    - export NODE_ENV="testing"
-#    - npm install
     - grunt unit
 
 coverage_tests:
   stage: test
   script:
-#    - export NODE_ENV="testing"
-#    - npm install
     - grunt --verbose coverage
   allow_failure: true
