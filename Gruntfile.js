@@ -3,7 +3,8 @@ module.exports = function(grunt) {
         pkg: grunt.file.readJSON('package.json'),
 
         qunit: {
-            all: ['tests/qunit.html']
+            all: ['tests/qunit.html'],
+            dist: ['tests/qunit-dist.html']
         },
         blanket_qunit: {
             all: {

@@ -4,28 +4,35 @@ stages:
   - build
   - test
 
+variables:
+  NODE_ENV: "testing"
+
+before_script:
+  - npm install
+
 build:
   stage: build
   artifacts:
     paths:
       - dist/
   script:
-    - rm dist/.gitkeep # keep this file out of the build artifacts
-    - export NODE_ENV="testing"
-    - npm install
+    - rm dist/.gitkeep # Keep this file out of the build artifacts
+#    - export NODE_ENV="testing"
+#    - npm install
     - grunt uglify
+    - grunt qunit:dist # Test the uglified files
 
 unit_tests:
   stage: test
   script:
-    - export NODE_ENV="testing"
-    - npm install
+#    - export NODE_ENV="testing"
+#    - npm install
     - grunt unit
 
 coverage_tests:
   stage: test
   script:
-    - export NODE_ENV="testing"
-    - npm install
+#    - export NODE_ENV="testing"
+#    - npm install
     - grunt --verbose coverage
   allow_failure: true
