@@ -1,8 +1,4 @@
-# SetJS
-
-[![Build Status][build_badge]][build_page]
-
----
+# SetJS &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [![Build Status][build_badge]][build_page]
 
 A basic implementation of the `Set` data structure in Javascript. In case you don't know what a `Set` is, I'll quote [Wikipedia][1]...
 
@@ -58,6 +54,6 @@ Returns a String representation of the elements in the `BasicSet` object.
 
 
 
-[build_badge]: https://git.codingallnight.com/ci/projects/2/status.png?ref=master "Build Status"
+[build_badge]: https://git.codingallnight.com/chris/set-js/badges/master/build.svg "Build Status"
 [build_page]: https://git.codingallnight.com/chris/set-js/builds?scope=all "SetJS Builds"
 [1]: http://en.wikipedia.org/wiki/Set_(computer_science) "Set (abstract data type)"
