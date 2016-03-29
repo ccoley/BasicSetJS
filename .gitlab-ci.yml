@@ -8,6 +8,7 @@ variables:
   NODE_ENV: "testing"
 
 before_script:
+  - npm config set cache /npm-cache --global
   - npm install
 
 build:
