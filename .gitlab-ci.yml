@@ -1,8 +1,8 @@
 image: js-testing
 
 stages:
-  - build
   - test
+  - build
 
 variables:
   NODE_ENV: "testing"
