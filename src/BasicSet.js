@@ -21,22 +21,37 @@ function BasicSet() {
     this.add.apply(this, arguments);
 }
 
+/**
+ * Parses input in the form of single values, arrays of values, and any
+ * number/combination of those. Arrays of values must be 1 dimensional.
+ *
+ * Returns an array of all the values of the input, without duplicates.
+ */
+BasicSet.prototype._mixedInputToArray = function() {
+    var arr = {};
+    var key;
+    for (var i = 0; i < arguments.length; i++) {
+        key = arguments[i];
+        if (Array.isArray(key)) {
+            for (var j = 0; j < key.length; j++) {
+                arr[key[j]] = key[j];
+            }
+        } else {
+            arr[key] = key;
+        }
+    }
+    return Object.keys(arr).map(function (key) { return arr[key]; });
+};
+
 // Usage:
 // add(key)
 // add(key1, key2, key3, ...)
 // add([key1, key2, key3, ...])
 // add(key1, [key2, key3, key4], ...)
 BasicSet.prototype.add = function() {
-    var key;
-    for (var i = 0; i < arguments.length; i++) {
-        key = arguments[i];
-        if (Array.isArray(key)) {
-            for (var j = 0; j < key.length; j++) {
-                this._data[key[j]] = key[j];
-            }
-        } else {
-            this._data[key] = key;
-        }
+    var input = this._mixedInputToArray.apply(this, arguments);
+    for (var i = 0; i < input.length; i++) {
+        this._data[input[i]] = input[i];
     }
     return this;
 };
@@ -47,65 +62,25 @@ BasicSet.prototype.add = function() {
 // remove([key1, key2, key3, ...])
 // remove(key1, [key2, key3, key4], ...)
 BasicSet.prototype.remove = function() {
-    var item;
-    for (var i = 0; i < arguments.length; i++) {
-        item = arguments[i];
-        if (Array.isArray(item)) {
-            for (var j = 0; j < item.length; j++) {
-                delete this._data[item[j]];
-            }
-        } else {
-            delete this._data[item];
-        }
+    var input = this._mixedInputToArray.apply(this, arguments);
+    for (var i = 0; i < input.length; i++) {
+        delete this._data[input[i]];
     }
     return this;
 };
 
 BasicSet.prototype.has = function(key) {
-//    return Object.prototype.hasOwnProperty.call(this._data, key);
     return this._data[key] !== undefined;
 };
 
 BasicSet.prototype.hasSome = function() {
-    var key;
-    for (var i = 0; i < arguments.length; i++) {
-        key = arguments[i];
-        if (Array.isArray(key)) {
-            for (var j = 0; j < key.length; j++) {
-                //if (Object.prototype.hasOwnProperty.call(this._data, key[j])) {
-                if (this._data[key[j]] !== undefined) {
-                    return true;
-                }
-            }
-        } else {
-            //if (Object.prototype.hasOwnProperty.call(this._data, key)) {
-            if (this._data[key] !== undefined) {
-                return true;
-            }
-        }
-    }
-    return false;
+    var input = this._mixedInputToArray.apply(this, arguments);
+    return this.getIntersection(input).length > 0;
 };
 
 BasicSet.prototype.hasAll = function() {
-    var key;
-    for (var i = 0; i < arguments.length; i++) {
-        key = arguments[i];
-        if (Array.isArray(key)) {
-            for (var j = 0; j < key.length; j++) {
-                //if (!Object.prototype.hasOwnProperty.call(this._data, key[j])) {
-                if (this._data[key[j]] === undefined) {
-                    return false;
-                }
-            }
-        } else {
-            //if (!Object.prototype.hasOwnProperty.call(this._data, key)) {
-            if (this._data[key] === undefined) {
-                return false;
-            }
-        }
-    }
-    return true;
+    var input = this._mixedInputToArray.apply(this, arguments);
+    return input.length === this.getIntersection(input).length;
 };
 
 BasicSet.prototype.getAll = function() {
@@ -162,9 +137,5 @@ BasicSet.prototype.clear = function() {
 };
 
 BasicSet.prototype.toString = function() {
-    var results = [];
-    for (var key in this._data) {
-        results.push(this._data[key]);
-    }
-    return results.join(',');
+    return this.getAll().join(',');
 };
