@@ -1,4 +1,4 @@
-image: js-testing
+image: dr.codingallnight.com/chris/docker-builds:js-testing
 
 stages:
   - test
