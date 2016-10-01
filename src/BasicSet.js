@@ -86,7 +86,9 @@ BasicSet.prototype.hasAll = function() {
 BasicSet.prototype.getAll = function() {
     var results = [];
     for (var key in this._data) {
-        results.push(this._data[key]);
+        if (this._data.hasOwnProperty(key)) {
+            results.push(this._data[key]);
+        }
     }
     return results;
 };
@@ -111,7 +113,9 @@ BasicSet.prototype.getIntersection = function(otherSet) {
 BasicSet.prototype.size = function() {
     var count = 0;
     for (var key in this._data) {
-        count++;
+        if (this._data.hasOwnProperty(key)) {
+            count++;
+        }
     }
     return count;
 };
@@ -123,7 +127,9 @@ BasicSet.prototype.size = function() {
  */
 BasicSet.prototype.isEmpty = function() {
     for (var key in this._data) {
-        return false;
+        if (this._data.hasOwnProperty(key)) {
+            return false;
+        }
     }
     return true;
 };
