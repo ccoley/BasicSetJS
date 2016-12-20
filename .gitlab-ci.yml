@@ -1,4 +1,4 @@
-image: dr.codingallnight.com/chris/docker-builds:js-testing
+image: $CI_REGISTRY/chris/docker-builds:js-testing
 
 stages:
   - test
